@@ -1,0 +1,50 @@
+{
+  "name": "passport-42",
+  "version": "1.0.0",
+  "description": "42 authentication strategy for Passport.",
+  "keywords": [
+    "passport",
+    "42",
+    "auth",
+    "authn",
+    "authentication",
+    "identity",
+    "42born2code",
+    "born2code",
+    "borntocode",
+    "forty-two"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pandark/passport-42.git"
+  },
+  "bugs": {
+    "url": "http://github.com/pandark/passport-42/issues"
+  },
+  "author": {
+    "name": "Adrien \"Pandark\" Pachkoff",
+    "email": "adrien-dev@pachkoff.com",
+    "url": "https://lifeleaks.com/"
+  },
+  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/MIT"
+    }
+  ],
+  "main": "./lib/passport-42",
+  "dependencies": {
+    "pkginfo": "0.4.x",
+    "passport-oauth2": "1.3.x"
+  },
+  "devDependencies": {
+    "vows": "0.8.x"
+  },
+  "scripts": {
+    "test": "NODE_PATH=lib node_modules/.bin/vows test/*-test.js"
+  },
+  "engines": {
+    "node": ">= 6.0.0"
+  }
+}
