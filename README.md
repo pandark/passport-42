@@ -45,7 +45,7 @@ application:
     app.get('/auth/42',
       passport.authenticate('42'));
 
-    app.get('/auth/42/callback', 
+    app.get('/auth/42/callback',
       passport.authenticate('42', { failureRedirect: '/login' }),
       function(req, res) {
         // Successful authentication, redirect home.

@@ -37,7 +37,7 @@ passport.use(new FortyTwoStrategy({
   function(accessToken, refreshToken, profile, done) {
     // asynchronous verification, for effect...
     process.nextTick(function () {
-      
+
       // To keep the example simple, the user's 42 profile is returned
       // to represent the logged-in user.  In a typical application, you
       // would want to associate the 42 account with a user record in your
@@ -119,7 +119,7 @@ app.get('/auth/42',
 //   to the login page.  Otherwise, the primary route function function
 //   will be called, which, in this example, will redirect the user to
 //   the home page.
-app.get('/auth/42/callback', 
+app.get('/auth/42/callback',
   passport.authenticate('42', { failureRedirect: '/login' }),
   function(req, res, next) {
     res.redirect('/');
