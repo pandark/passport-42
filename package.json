@@ -33,7 +33,7 @@
       "url": "http://www.opensource.org/licenses/MIT"
     }
   ],
-  "main": "./lib/passport-42",
+  "main": "./lib",
   "dependencies": {
     "pkginfo": "0.4.x",
     "passport-oauth2": "1.3.x"
