@@ -1,3 +1,15 @@
 language: "node_js"
 node_js:
   - "node"
+
+before_install:
+  - "npm install make-node@0.3.x -g"
+  - "preinstall-compat"
+
+script:
+  - "make test-cov"
+
+after_success:
+  - "make report-cov"
+
+sudo: false

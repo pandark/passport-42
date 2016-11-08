@@ -1,38 +1,60 @@
-# Passport-42
+# passport-42
 
-[Passport](https://github.com/jaredhanson/passport) strategy for authenticating
-with [42](https://api.intra.42.fr/apidoc) using the OAuth 2.0 API.
+[![Build](https://img.shields.io/travis/pandark/passport-42.svg)](https://travis-ci.org/pandark/passport-42)
+[![Coverage](https://img.shields.io/coveralls/pandark/passport-42.svg)](https://coveralls.io/r/pandark/passport-42)
+[![Quality](https://img.shields.io/codeclimate/github/pandark/passport-42.svg?label=quality)](https://codeclimate.com/github/pandark/passport-42)
+[![Dependencies](https://img.shields.io/david/pandark/passport-42.svg)](https://david-dm.org/pandark/passport-42)
+
+[Passport](http://passportjs.org/) strategy for authenticating with
+[42](https://api.intra.42.fr/apidoc) using the OAuth 2.0 API.
 
 This module lets you authenticate using 42 in your Node.js applications.
-By plugging into Passport, 42 authentication can be easily and
-unobtrusively integrated into any application or framework that supports
+By plugging into Passport, 42 authentication can be easily and unobtrusively
+integrated into any application or framework that supports
 [Connect](http://www.senchalabs.org/connect/)-style middleware, including
 [Express](http://expressjs.com/).
 
 ## Install
 
-    $ npm install passport-42
+```bash
+$ npm install passport-42
+```
 
 ## Usage
+
+#### Create an Application
+
+Before using `passport-42`, you must register an application with
+42.  If you have not already done so, a new application can be created at
+[42 Applications](https://profile.intra.42.fr/oauth/applications).  Your
+application will be issued an app UID and app SECRET, which need to be provided
+to the strategy.  You will also need to configure a redirect URI which matches
+the route in your application.
 
 #### Configure Strategy
 
 The 42 authentication strategy authenticates users using a 42 account and OAuth
-2.0 tokens.  The strategy requires a `verify` callback, which accepts these
-credentials and calls `done` providing a user, as well as `options` specifying
-a client ID, client secret, and callback URL.
+2.0 tokens.  The app UID and SECRET obtained when creating an application are
+supplied as options when creating the strategy.  The strategy also requires a
+`verify` callback, which receives the access token and optional refresh token,
+as well as `profile` which contains the authenticated user's 42 profile.  The
+`verify` callback must call `cb` providing a user to complete authentication.
 
-    passport.use(new FortyTwoStrategy({
-        clientID: FORTYTWO_CLIENT_ID,
-        clientSecret: FORTYTWO_CLIENT_SECRET,
-        callbackURL: "http://127.0.0.1:3000/auth/42/callback"
-      },
-      function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ fortytwoId: profile.id }, function (err, user) {
-          return done(err, user);
-        });
-      }
-    ));
+```js
+var FortyTwoStrategy = require('passport-42').Strategy;
+
+passport.use(new FortyTwoStrategy({
+    clientID: FORTYTWO_APP_ID,
+    clientSecret: FORTYTWO_APP_SECRET,
+    callbackURL: "http://127.0.0.1:3000/auth/42/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ fortytwoId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
+```
 
 #### Authenticate Requests
 
@@ -42,33 +64,49 @@ authenticate requests.
 For example, as route middleware in an [Express](http://expressjs.com/)
 application:
 
-    app.get('/auth/42',
-      passport.authenticate('42'));
+```js
+app.get('/auth/42',
+  passport.authenticate('42'));
 
-    app.get('/auth/42/callback',
-      passport.authenticate('42', { failureRedirect: '/login' }),
-      function(req, res) {
-        // Successful authentication, redirect home.
-        res.redirect('/');
-      });
+app.get('/auth/42/callback',
+  passport.authenticate('42', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+```
 
 ## Examples
 
-For a complete, working example, refer to the [login example](https://github.com/pandark/passport-42/tree/master/examples/login).
+Developers using the popular [Express](http://expressjs.com/) web framework can
+refer to an [example](https://github.com/pandark/passport-42-example)
+as a starting point for their own web applications.
 
-## Tests
+## Contributing
 
-    $ npm install --dev
-    $ make test
+#### Tests
 
-[![Build Status](https://travis-ci.org/pandark/passport-42.svg?branch=master)](https://travis-ci.org/pandark/passport-42)
+The test suite is located in the `test/` directory.  All new features are
+expected to have corresponding test cases.  Ensure that the complete test suite
+passes by executing:
 
-## Credits
+```bash
+$ make test
+```
 
-  - [Adrien "Pandark" Pachkoff](http://github.com/pandark)
+#### Coverage
+
+The test suite covers 100% of the code base.  All new feature development is
+expected to maintain that level.  Coverage reports can be viewed by executing:
+
+```bash
+$ make test-cov
+$ make view-cov
+```
 
 ## License
 
 [The MIT License](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2016 Adrien "Pandark" Pachkoff <[https://lifeleaks.com/](https://lifeleaks.com/)>
+Copyright (c) 2016 Adrien "Pandark" Pachkoff
+<[https://lifeleaks.com/](https://lifeleaks.com/)>
