@@ -38,9 +38,9 @@ describe('Strategy', function() {
 
   describe('failure caused by user denying request', function() {
     var strategy = new FortyTwoStrategy({
-        clientID: 'ABC123',
-        clientSecret: 'secret'
-      }, function() {});
+      clientID: 'ABC123',
+      clientSecret: 'secret'
+    }, function() {});
 
     var info;
 
@@ -90,18 +90,21 @@ describe('Strategy', function() {
     });
   });
 
-  describe('constructed with both customHeaders option, including User-Agent field, and userAgent option', function() {
-    var strategy = new FortyTwoStrategy({
-      clientID: 'ABC123',
-      clientSecret: 'secret',
-      customHeaders: { 'User-Agent': 'example.org' },
-      userAgent: 'example.net'
-    }, function() {});
+  describe('constructed with both customHeaders option, including User-Agent ' +
+    'field, and userAgent option',
+    function() {
+      var strategy = new FortyTwoStrategy({
+        clientID: 'ABC123',
+        clientSecret: 'secret',
+        customHeaders: { 'User-Agent': 'example.org' },
+        userAgent: 'example.net'
+      }, function() {});
 
-    it('should set user agent as custom header in underlying OAuth 2.0 implementation', function() {
-      expect(strategy._oauth2._customHeaders['User-Agent']).to.equal('example.org');
+      it('should set user agent as custom header in underlying OAuth 2.0 ' +
+        'implementation', function() {
+        expect(strategy._oauth2._customHeaders['User-Agent']).to.equal('example.org');
+      });
     });
-  });
 
   describe('handling a response with an authorization code', function() {
     var OAuth2Strategy = require('passport-oauth2').Strategy;
@@ -117,26 +120,36 @@ describe('Strategy', function() {
 
       this._oauth2 = new OAuth2(options.clientID,  options.clientSecret,
         '', options.authorizationURL, options.tokenURL, options.customHeaders);
-      this._oauth2.getOAuthAccessToken = function(code, options, callback) {
-        if (code != 'SplxlOBeZQQYbYS6WxSbIA+ALT1') { return callback(new Error('wrong code argument')); }
+      this._oauth2.getOAuthAccessToken = function(code, options2, callback) {
+        if (code !== 'SplxlOBeZQQYbYS6WxSbIA+ALT1') {
+          return callback(new Error('wrong code argument'));
+        }
 
         return callback(null, 's3cr1t-t0k3n', undefined, {});
       };
       this._oauth2.get = function(url, accessToken, callback) {
-        if (url != 'https://api.intra.42.fr/v2/me') { return callback(new Error('wrong url argument')); }
-        if (accessToken != 's3cr1t-t0k3n') { return callback(new Error('wrong token argument')); }
+        if (url !== 'https://api.intra.42.fr/v2/me') {
+          return callback(new Error('wrong url argument'));
+        }
+        if (accessToken !== 's3cr1t-t0k3n') {
+          return callback(new Error('wrong token argument'));
+        }
 
-        var body = '{ "id": 46, "email": "codooku@student.42.fr", "login": "codooku", "first_name": "Count", "last_name": "Dooku", "url": "https://api.intra.42.fr/v2/users/codooku", "phone": null, "displayname": "Count Dooku", "image_url": "https://cdn.intra.42.fr/images/empty.png" }';
+        var body = '{ "id": 46, "email": "codooku@student.42.fr", "login": ' +
+          '"codooku", "first_name": "Count", "last_name": "Dooku", "url": ' +
+          '"https://api.intra.42.fr/v2/users/codooku", "phone": null, ' +
+          '"displayname": "Count Dooku", "image_url": ' +
+          '"https://cdn.intra.42.fr/images/empty.png" }';
         callback(null, body, undefined);
       };
     };
     util.inherits(MockOAuth2Strategy, OAuth2Strategy);
 
-    var FortyTwoStrategy = $require('../lib/strategy', {
+    var MockFortyTwoStrategy = $require('../lib/strategy', {
       'passport-oauth2': MockOAuth2Strategy
     });
 
-    var strategy = new FortyTwoStrategy({
+    var strategy = new MockFortyTwoStrategy({
       clientID: 'ABC123',
       clientSecret: 'secret'
     }, function verify(accessToken, refreshToken, profile, done) {
@@ -167,7 +180,8 @@ describe('Strategy', function() {
     });
   });
 
-  describe('error caused by invalid code sent to token endpoint, with response correctly indicating success', function() {
+  describe('error caused by invalid code sent to token endpoint, with ' +
+    'response correctly indicating success', function() {
     var OAuth2Strategy = require('passport-oauth2').Strategy;
     var OAuth2;
     if (existsSync('node_modules/oauth')) { // npm 3.x
@@ -181,19 +195,22 @@ describe('Strategy', function() {
 
       this._oauth2 = new OAuth2(options.clientID,  options.clientSecret,
         '', options.authorizationURL, options.tokenURL, options.customHeaders);
-      this._oauth2.getOAuthAccessToken = function(code, options, callback) {
+      this._oauth2.getOAuthAccessToken = function(code, options2, callback) {
         return callback({
           statusCode: 401,
-          data: '{"error":"bad_verification_code","error_description":"The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client."}' });
+          data: '{"error":"bad_verification_code","error_description":"The ' +
+          'provided authorization grant is invalid, expired, revoked, does ' +
+          'not match the redirection URI used in the authorization request, ' +
+          'or was issued to another client."}' });
       };
     };
     util.inherits(MockOAuth2Strategy, OAuth2Strategy);
 
-    var FortyTwoStrategy = $require('../lib/strategy', {
+    var MockFortyTwoStrategy = $require('../lib/strategy', {
       'passport-oauth2': MockOAuth2Strategy
     });
 
-    var strategy = new FortyTwoStrategy({
+    var strategy = new MockFortyTwoStrategy({
       clientID: 'ABC123',
       clientSecret: 'secret'
     }, function() {});
@@ -216,7 +233,9 @@ describe('Strategy', function() {
 
     it('should error', function() {
       expect(err.constructor.name).to.equal('TokenError');
-      expect(err.message).to.equal('The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client.');
+      expect(err.message).to.equal('The provided authorization grant is ' +
+        'invalid, expired, revoked, does not match the redirection URI used ' +
+        'in the authorization request, or was issued to another client.');
       expect(err.code).to.equal('bad_verification_code');
     });
   }); // error caused by invalid code sent to token endpoint, with response correctly indicating success

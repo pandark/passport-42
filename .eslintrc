@@ -1,41 +1,81 @@
 {
   "env": {
+    "mocha": true,
     "node": true
   },
   "globals": {},
   "rules": {
-    "no-bitwise": 2,
-    "camelcase": 2,
-    "curly": 2,
-    "guard-for-in": 2,
+    "no-bitwise": "error",
+    "camelcase": "error",
+    "curly": "error",
+    "eqeqeq": "error",
+    "guard-for-in": "error",
+    "no-extend-native": "error",
     "wrap-iife": [
-      2,
+      "error",
       "any"
     ],
-    "no-use-before-define": [
+    "indent": [
+      "error",
       2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "no-use-before-define": [
+      "error",
       {
         "functions": false
       }
     ],
-    "new-cap": 2,
-    "no-caller": 2,
-    "no-empty": [
-      2,
-      {
-        "allowEmptyCatch": true
-      }
-    ],
-    "no-new": 2,
+    "new-cap": "error",
+    "no-caller": "error",
+    "no-empty": "error",
+    "no-irregular-whitespace": "error",
+    "no-new": "error",
+    "no-plusplus": "off",
     "quotes": [
-      2,
+      "error",
       "single"
     ],
-    "no-undef": 2,
-    "no-unused-vars": 2,
+    "no-undef": "error",
+    "no-unused-vars": "error",
+    "strict": "off",
+    "max-params": "off",
+    "max-depth": "off",
+    "max-statements": "off",
+    "complexity": "off",
+    "max-len": [
+      "error",
+      {
+        "code": 100,
+        "ignoreComments": true
+      }
+    ],
+    "no-var": "off",
+    "semi": "off",
+    "no-cond-assign": "off",
+    "no-debugger": "off",
+    "no-eq-null": "off",
+    "no-eval": "off",
+    "no-unused-expressions": "off",
+    "block-scoped-var": "off",
+    "no-iterator": "off",
+    "linebreak-style": "off",
     "comma-style": [
-      2,
+      "error",
       "last"
-    ]
+    ],
+    "no-loop-func": "off",
+    "no-multi-str": "off",
+    "require-yield": "off",
+    "valid-typeof": "off",
+    "no-proto": "off",
+    "no-script-url": "off",
+    "no-shadow": "error",
+    "dot-notation": "error",
+    "no-new-func": "off",
+    "no-new-wrappers": "off",
+    "no-invalid-this": "off"
   }
 }

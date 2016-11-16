@@ -13,10 +13,18 @@ describe('Strategy#userProfile', function() {
     }, function() {});
 
     strategy._oauth2.get = function(url, accessToken, callback) {
-      if (url != 'https://api.intra.42.fr/v2/me') { return callback(new Error('wrong url argument')); }
-      if (accessToken != 'token') { return callback(new Error('wrong token argument')); }
+      if (url !== 'https://api.intra.42.fr/v2/me') {
+        return callback(new Error('wrong url argument'));
+      }
+      if (accessToken !== 'token') {
+        return callback(new Error('wrong token argument'));
+      }
 
-      var body = '{ "id": 46, "email": "codooku@student.42.fr", "login": "codooku", "first_name": "Count", "last_name": "Dooku", "url": "https://api.intra.42.fr/v2/users/codooku", "phone": null, "displayname": "Count Dooku", "image_url": "https://cdn.intra.42.fr/images/empty.png" }';
+      var body = '{ "id": 46, "email": "codooku@student.42.fr", "login": ' +
+        '"codooku", "first_name": "Count", "last_name": "Dooku", "url": ' +
+        '"https://api.intra.42.fr/v2/users/codooku", "phone": null, ' +
+        '"displayname": "Count Dooku", "image_url": ' +
+        '"https://cdn.intra.42.fr/images/empty.png" }';
       callback(null, body, undefined);
     };
 
@@ -37,11 +45,13 @@ describe('Strategy#userProfile', function() {
       expect(profile.id).to.equal('46');
       expect(profile.username).to.equal('codooku');
       expect(profile.displayName).to.equal('Count Dooku');
-      expect(profile.profileUrl).to.equal('https://api.intra.42.fr/v2/users/codooku');
+      expect(profile.profileUrl).to
+        .equal('https://api.intra.42.fr/v2/users/codooku');
       expect(profile.emails).to.have.length(1);
       expect(profile.emails[0].value).to.equal('codooku@student.42.fr');
       expect(profile.photos).to.have.length(1);
-      expect(profile.photos[0].value).to.equal('https://cdn.intra.42.fr/images/empty.png');
+      expect(profile.photos[0].value).to
+        .equal('https://cdn.intra.42.fr/images/empty.png');
       expect(profile.phoneNumbers).to.have.length(1);
       expect(profile.phoneNumbers[0].value).to.equal(null);
     });
@@ -63,10 +73,18 @@ describe('Strategy#userProfile', function() {
     }, function() {});
 
     strategy._oauth2.get = function(url, accessToken, callback) {
-      if (url != 'https://api.intra.42.fr/alpha/me') { return callback(new Error('wrong url argument')); }
-      if (accessToken != 'token') { return callback(new Error('wrong token argument')); }
+      if (url !== 'https://api.intra.42.fr/alpha/me') {
+        return callback(new Error('wrong url argument'));
+      }
+      if (accessToken !== 'token') {
+        return callback(new Error('wrong token argument'));
+      }
 
-      var body = '{ "id": 46, "email": "codooku@student.42.fr", "login": "codooku", "first_name": "Count", "last_name": "Dooku", "url": "https://api.intra.42.fr/v2/users/codooku", "phone": null, "displayname": "Count Dooku", "image_url": "https://cdn.intra.42.fr/images/empty.png" }';
+      var body = '{ "id": 46, "email": "codooku@student.42.fr", "login": ' +
+        '"codooku", "first_name": "Count", "last_name": "Dooku", "url": ' +
+        '"https://api.intra.42.fr/v2/users/codooku", "phone": null, ' +
+        '"displayname": "Count Dooku", "image_url": ' +
+        '"https://cdn.intra.42.fr/images/empty.png" }';
       callback(null, body, undefined);
     };
 
@@ -87,11 +105,13 @@ describe('Strategy#userProfile', function() {
       expect(profile.id).to.equal('46');
       expect(profile.username).to.equal('codooku');
       expect(profile.displayName).to.equal('Count Dooku');
-      expect(profile.profileUrl).to.equal('https://api.intra.42.fr/v2/users/codooku');
+      expect(profile.profileUrl).to
+        .equal('https://api.intra.42.fr/v2/users/codooku');
       expect(profile.emails).to.have.length(1);
       expect(profile.emails[0].value).to.equal('codooku@student.42.fr');
       expect(profile.photos).to.have.length(1);
-      expect(profile.photos[0].value).to.equal('https://cdn.intra.42.fr/images/empty.png');
+      expect(profile.photos[0].value).to
+        .equal('https://cdn.intra.42.fr/images/empty.png');
       expect(profile.phoneNumbers).to.have.length(1);
       expect(profile.phoneNumbers[0].value).to.equal(null);
     });
@@ -107,12 +127,13 @@ describe('Strategy#userProfile', function() {
 
   describe('error caused by invalid token', function() {
     var strategy =  new FortyTwoStrategy({
-        clientID: 'ABC123',
-        clientSecret: 'secret'
-      }, function() {});
+      clientID: 'ABC123',
+      clientSecret: 'secret'
+    }, function() {});
 
     strategy._oauth2.get = function(url, accessToken, callback) {
-      var body = '{"message":"Bad credentials"}'; //TODO check if the real message is the same
+      //TODO check if the real message is the same
+      var body = '{"message":"Bad credentials"}';
       callback({ statusCode: 400, data: body });
     };
 
@@ -135,9 +156,9 @@ describe('Strategy#userProfile', function() {
 
   describe('error caused by malformed response', function() {
     var strategy =  new FortyTwoStrategy({
-        clientID: 'ABC123',
-        clientSecret: 'secret'
-      }, function() {});
+      clientID: 'ABC123',
+      clientSecret: 'secret'
+    }, function() {});
 
     strategy._oauth2.get = function(url, accessToken, callback) {
       var body = 'Hello, world.';
