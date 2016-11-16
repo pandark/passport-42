@@ -1,8 +1,8 @@
 /* global describe, it, before, expect */
 /* jshint expr: true */
 
-var Profile = require('../lib/profile')
-  , fs = require('fs');
+var Profile = require('../lib/profile');
+var fs = require('fs');
 
 
 describe('Profile.parse', function() {

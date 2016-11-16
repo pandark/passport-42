@@ -121,6 +121,7 @@ describe('Strategy#userProfile', function() {
       strategy.userProfile('token', function(e, p) {
         err = e;
         profile = p;
+        profile;
         done();
       });
     });
@@ -148,6 +149,7 @@ describe('Strategy#userProfile', function() {
       strategy.userProfile('token', function(e, p) {
         err = e;
         profile = p;
+        profile;
         done();
       });
     });
@@ -166,7 +168,7 @@ describe('Strategy#userProfile', function() {
 
     strategy._oauth2.get = function(url, accessToken, callback) {
       return callback(new Error('something went wrong'));
-    }
+    };
 
 
     var err, profile;

@@ -1,13 +1,13 @@
-/* global describe, it, expect */
+/* global describe, it, before, expect */
 /* jshint expr: true */
 
-var $require = require('proxyquire')
-  , chai = require('chai')
-  , util = require('util')
-  , path = require('path')
-  , fs = require('fs')
-  , existsSync = fs.existsSync || path.existsSync // node <=0.6
-  , FortyTwoStrategy = require('../lib/strategy');
+var $require = require('proxyquire');
+var chai = require('chai');
+var util = require('util');
+var path = require('path');
+var fs = require('fs');
+var existsSync = fs.existsSync || path.existsSync; // node <=0.6
+var FortyTwoStrategy = require('../lib/strategy');
 
 
 describe('Strategy', function() {
@@ -25,15 +25,16 @@ describe('Strategy', function() {
     it('should have default user agent', function() {
       expect(strategy._oauth2._customHeaders['User-Agent']).to.equal('passport-42');
     });
-  })
+  });
 
   describe('constructed with undefined options', function() {
     it('should throw', function() {
       expect(function() {
         var strategy = new FortyTwoStrategy(undefined, function(){});
+        strategy;
       }).to.throw(Error);
     });
-  })
+  });
 
   describe('failure caused by user denying request', function() {
     var strategy = new FortyTwoStrategy({
@@ -128,12 +129,12 @@ describe('Strategy', function() {
         var body = '{ "id": 46, "email": "codooku@student.42.fr", "login": "codooku", "first_name": "Count", "last_name": "Dooku", "url": "https://api.intra.42.fr/v2/users/codooku", "phone": null, "displayname": "Count Dooku", "image_url": "https://cdn.intra.42.fr/images/empty.png" }';
         callback(null, body, undefined);
       };
-    }
+    };
     util.inherits(MockOAuth2Strategy, OAuth2Strategy);
 
     var FortyTwoStrategy = $require('../lib/strategy', {
       'passport-oauth2': MockOAuth2Strategy
-    })
+    });
 
     var strategy = new FortyTwoStrategy({
       clientID: 'ABC123',
@@ -141,7 +142,7 @@ describe('Strategy', function() {
     }, function verify(accessToken, refreshToken, profile, done) {
       process.nextTick(function() {
         return done(null, profile);
-      })
+      });
     });
 
 
@@ -185,12 +186,12 @@ describe('Strategy', function() {
           statusCode: 401,
           data: '{"error":"bad_verification_code","error_description":"The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client."}' });
       };
-    }
+    };
     util.inherits(MockOAuth2Strategy, OAuth2Strategy);
 
     var FortyTwoStrategy = $require('../lib/strategy', {
       'passport-oauth2': MockOAuth2Strategy
-    })
+    });
 
     var strategy = new FortyTwoStrategy({
       clientID: 'ABC123',
