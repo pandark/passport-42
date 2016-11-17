@@ -51,11 +51,9 @@ describe('Strategy', function() {
           done();
         })
         .req(function(req) {
-          req.query = {};
-          req.query.error = 'access_denied';
-          req.query.error_code = '200';
-          req.query.error_description  = 'Permissions error';
-          req.query.error_reason = 'user_denied';
+          req.query = JSON.parse('{"error": "access_denied", "error_code": ' +
+            '"200", "error_description": "Permissions error", ' +
+            '"error_reason": "user_denied"}');
         })
         .authenticate();
     });
@@ -238,6 +236,7 @@ describe('Strategy', function() {
         'in the authorization request, or was issued to another client.');
       expect(err.code).to.equal('bad_verification_code');
     });
-  }); // error caused by invalid code sent to token endpoint, with response correctly indicating success
+  }); // error caused by invalid code sent to token endpoint, with response
+  //correctly indicating success
 
 });
