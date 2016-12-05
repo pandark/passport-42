@@ -38,11 +38,11 @@
     "passport-oauth2": "1.x"
   },
   "devDependencies": {
+    "chai": "3.5.x",
+    "chai-passport-strategy": "1.0.x",
     "make-node": "0.3.x",
-    "mocha": "1.x",
-    "chai": "2.x",
-    "chai-passport-strategy": "1.x",
-    "proxyquire": "1.4.x"
+    "mocha": "3.2.x",
+    "proxyquire": "1.7.x"
   },
   "engines": {
     "node": ">= 6.0.0"
