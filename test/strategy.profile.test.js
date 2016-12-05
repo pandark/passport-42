@@ -65,6 +65,56 @@ describe('Strategy#userProfile', function() {
     });
   }); // fetched from default endpoint
 
+  describe('fetched from default endpoint with fields specified', function() {
+    var strategy =  new FortyTwoStrategy({
+      clientID: 'ABC123',
+      clientSecret: 'secret',
+      profileFields : { 'xlogin': 'login', 'displayName': 'displayname' }
+    }, function() {});
+
+    strategy._oauth2.get = function(url, accessToken, callback) {
+      if (url !== 'https://api.intra.42.fr/v2/me') {
+        return callback(new Error('wrong url argument'));
+      }
+      if (accessToken !== 'token') {
+        return callback(new Error('wrong token argument'));
+      }
+
+      var body = '{ "id": 46, "email": "codooku@student.42.fr", "login": ' +
+        '"codooku", "first_name": "Count", "last_name": "Dooku", "url": ' +
+        '"https://api.intra.42.fr/v2/users/codooku", "phone": null, ' +
+        '"displayname": "Count Dooku", "image_url": ' +
+        '"https://cdn.intra.42.fr/images/empty.png" }';
+      callback(null, body, undefined);
+    };
+
+
+    var profile;
+
+    before(function(done) {
+      strategy.userProfile('token', function(err, p) {
+        if (err) { return done(err); }
+        profile = p;
+        done();
+      });
+    });
+
+    it('should parse profile', function() {
+      expect(profile.provider).to.equal('42');
+
+      expect(profile.xlogin).to.equal('codooku');
+      expect(profile.displayName).to.equal('Count Dooku');
+    });
+
+    it('should set raw property', function() {
+      expect(profile._raw).to.be.a('string');
+    });
+
+    it('should set json property', function() {
+      expect(profile._json).to.be.an('object');
+    });
+  }); // fetched from default endpoint with fields specified
+
   describe('fetched from custom endpoint', function() {
     var strategy =  new FortyTwoStrategy({
       clientID: 'ABC123',
