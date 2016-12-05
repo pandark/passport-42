@@ -23,7 +23,8 @@ describe('Strategy', function() {
     });
 
     it('should have default user agent', function() {
-      expect(strategy._oauth2._customHeaders['User-Agent']).to.equal('passport-42');
+      expect(strategy._oauth2._customHeaders['User-Agent'])
+        .to.equal('passport-42');
     });
   });
 
@@ -64,17 +65,22 @@ describe('Strategy', function() {
     });
   });
 
-  describe('constructed with customHeaders option, including User-Agent field', function() {
-    var strategy = new FortyTwoStrategy({
-      clientID: 'ABC123',
-      clientSecret: 'secret',
-      customHeaders: { 'User-Agent': 'example.test' }
-    }, function() {});
+  describe('constructed with customHeaders option, including User-Agent field',
+    function() {
+      var strategy = new FortyTwoStrategy({
+        clientID: 'ABC123',
+        clientSecret: 'secret',
+        customHeaders: { 'User-Agent': 'example.test' }
+      }, function() {});
 
-    it('should set user agent as custom header in underlying OAuth 2.0 implementation', function() {
-      expect(strategy._oauth2._customHeaders['User-Agent']).to.equal('example.test');
-    });
-  });
+      it('should set user agent as custom header in underlying OAuth 2.0 ' +
+        'implementation',
+        function() {
+          expect(strategy._oauth2._customHeaders['User-Agent'])
+            .to.equal('example.test');
+        });
+    }
+  );
 
   describe('constructed with userAgent option', function() {
     var strategy = new FortyTwoStrategy({
@@ -83,9 +89,13 @@ describe('Strategy', function() {
       userAgent: 'example.test'
     }, function() {});
 
-    it('should set user agent as custom header in underlying OAuth 2.0 implementation', function() {
-      expect(strategy._oauth2._customHeaders['User-Agent']).to.equal('example.test');
-    });
+    it('should set user agent as custom header in underlying OAuth 2.0 ' +
+      'implementation',
+      function() {
+        expect(strategy._oauth2._customHeaders['User-Agent'])
+          .to.equal('example.test');
+      }
+    );
   });
 
   describe('constructed with both customHeaders option, including User-Agent ' +
@@ -100,7 +110,8 @@ describe('Strategy', function() {
 
       it('should set user agent as custom header in underlying OAuth 2.0 ' +
         'implementation', function() {
-        expect(strategy._oauth2._customHeaders['User-Agent']).to.equal('example.org');
+        expect(strategy._oauth2._customHeaders['User-Agent'])
+            .to.equal('example.org');
       });
     });
 
