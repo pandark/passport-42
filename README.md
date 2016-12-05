@@ -103,6 +103,12 @@ new FortyTwoStrategy({
 Refer to the [User](https://api.intra.42.fr/apidoc/2.0/users/show.html) 42 API
 Reference for the complete set of available fields.
 
+#### User agent
+
+Although 42 API doesn't require a user agent in the requests header,
+passport-42 sets one, by default "passport-42". You can set a different one
+using the `userAgent` option.
+
 ## Examples
 
 Developers using the popular [Express](http://expressjs.com/) web framework can
