@@ -22,7 +22,7 @@ $ npm install passport-42
 
 ## Usage
 
-#### Create an Application
+### Create an Application
 
 Before using `passport-42`, you must register an application with
 42.  If you have not already done so, a new application can be created at
@@ -31,7 +31,7 @@ application will be issued an app UID and app SECRET, which need to be provided
 to the strategy.  You will also need to configure a redirect URI which matches
 the route in your application.
 
-#### Configure Strategy
+### Configure Strategy
 
 The 42 authentication strategy authenticates users using a 42 account and OAuth
 2.0 tokens.  The app UID and SECRET obtained when creating an application are
@@ -56,7 +56,7 @@ passport.use(new FortyTwoStrategy({
 ));
 ```
 
-#### Authenticate Requests
+### Authenticate Requests
 
 Use `passport.authenticate()`, specifying the `'42'` strategy, to
 authenticate requests.
@@ -76,7 +76,15 @@ app.get('/auth/42/callback',
   });
 ```
 
-#### Specify profile fields
+## Examples
+
+Developers using the popular [Express](http://expressjs.com/) web framework can
+refer to an [example](https://github.com/pandark/passport-42-example)
+as a starting point for their own web applications.
+
+## Options
+
+### Specify profile fields
 
 The 42 profile contains a lot of information about a user.  The fields needed
 by an application can be indicated by setting the `profileFields` option.
@@ -103,21 +111,15 @@ new FortyTwoStrategy({
 Refer to the [User](https://api.intra.42.fr/apidoc/2.0/users/show.html) 42 API
 Reference for the complete set of available fields.
 
-#### User agent
+### User agent
 
 Although 42 API doesn't require a user agent in the requests header,
 passport-42 sets one, by default "passport-42". You can set a different one
 using the `userAgent` option.
 
-## Examples
-
-Developers using the popular [Express](http://expressjs.com/) web framework can
-refer to an [example](https://github.com/pandark/passport-42-example)
-as a starting point for their own web applications.
-
 ## Contributing
 
-#### Tests
+### Tests
 
 The test suite is located in the `test/` directory.  All new features are
 expected to have corresponding test cases.  Ensure that the complete test suite
@@ -127,7 +129,7 @@ passes by executing:
 $ make test
 ```
 
-#### Coverage
+### Coverage
 
 The test suite covers 100% of the code base.  All new feature development is
 expected to maintain that level.  Coverage reports can be viewed by executing:
