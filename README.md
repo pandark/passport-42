@@ -1,10 +1,9 @@
 # passport-42
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/pandark/passport-42.svg)](https://greenkeeper.io/)
-
 [![Build](https://img.shields.io/travis/pandark/passport-42.svg)](https://travis-ci.org/pandark/passport-42)
 [![Coverage](https://img.shields.io/coveralls/pandark/passport-42.svg)](https://coveralls.io/r/pandark/passport-42)
 [![Quality](https://img.shields.io/codeclimate/github/pandark/passport-42.svg?label=quality)](https://codeclimate.com/github/pandark/passport-42)
+[![Greenkeeper badge](https://badges.greenkeeper.io/pandark/passport-42.svg)](https://greenkeeper.io/)
 [![Dependencies](https://img.shields.io/david/pandark/passport-42.svg)](https://david-dm.org/pandark/passport-42)
 
 [Passport](http://passportjs.org/) strategy for authenticating with
