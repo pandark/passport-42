@@ -1,6 +1,6 @@
 {
   "name": "passport-42",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "42 authentication strategy for Passport.",
   "keywords": [
     "passport",
