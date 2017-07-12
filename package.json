@@ -38,7 +38,7 @@
     "passport-oauth2": "1.x"
   },
   "devDependencies": {
-    "chai": "~4.0.0",
+    "chai": "~4.1.0",
     "chai-passport-strategy": "1.0.x",
     "make-node": "0.3.x",
     "mocha": "3.4.x",
