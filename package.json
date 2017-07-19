@@ -1,6 +1,6 @@
 {
   "name": "passport-42",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "42 authentication strategy for Passport.",
   "keywords": [
     "passport",
@@ -38,11 +38,11 @@
     "passport-oauth2": "1.x"
   },
   "devDependencies": {
-    "chai": "~4.0.0",
-    "chai-passport-strategy": "1.0.x",
+    "chai": "4.x",
+    "chai-passport-strategy": "1.x",
     "make-node": "0.3.x",
-    "mocha": "3.4.x",
-    "proxyquire": "1.8.x"
+    "mocha": "3.x",
+    "proxyquire": "1.x"
   },
   "engines": {
     "node": ">= 6.0.0"
