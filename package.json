@@ -41,7 +41,7 @@
     "chai": "4.x",
     "chai-passport-strategy": "1.x",
     "make-node": "0.3.x",
-    "mocha": "3.x",
+    "mocha": "4.x",
     "proxyquire": "1.x"
   },
   "engines": {
